@@ -20,11 +20,11 @@ impl<'a, T> Node<'a, T> {
 }
 
 impl<'a, T: std::fmt::Display> Node<'a, T> {
-    fn display(&mut self) {
+    fn display(&self) {
         print!("{}", self.value);
         match self.prev {
             None => println!(),
-            Some(ref mut node) => {
+            Some(ref node) => {
                 print!(" ");
                 node.display();
             }
@@ -35,6 +35,6 @@ impl<'a, T: std::fmt::Display> Node<'a, T> {
 fn main() {
     let mut first = Node::new(1u32);
     let mut second = first.append(2);
-    let mut third = second.append(3);
+    let third = second.append(3);
     third.display();
 }
