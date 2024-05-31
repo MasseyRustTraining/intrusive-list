@@ -17,6 +17,10 @@ impl<'a, T> Node<'a, T> {
             value,
         }
     }
+
+    fn pop(self) -> Option<&'a mut Self> {
+        self.prev
+    }
 }
 
 impl<'a, T: std::fmt::Display> Node<'a, T> {
@@ -37,4 +41,6 @@ fn main() {
     let mut second = first.append(2);
     let third = second.append(3);
     third.display();
+    let second = third.pop().unwrap();
+    second.display();
 }
