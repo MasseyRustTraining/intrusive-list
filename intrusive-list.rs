@@ -1,5 +1,5 @@
 struct Node<'a, T> {
-    prev: Option<&'a Node<'a, T>>,
+    prev: Option<&'a mut Node<'a, T>>,
     value: T,
 }
 
@@ -11,7 +11,7 @@ impl<'a, T> Node<'a, T> {
         }
     }
 
-    fn append(&'a self, value: T) -> Self {
+    fn append(&'a mut self, value: T) -> Self {
         Self {
             prev: Some(self),
             value,
@@ -20,11 +20,11 @@ impl<'a, T> Node<'a, T> {
 }
 
 impl<'a, T: std::fmt::Display> Node<'a, T> {
-    fn display(&self) {
+    fn display(&mut self) {
         print!("{}", self.value);
         match self.prev {
             None => println!(),
-            Some(node) => {
+            Some(ref mut node) => {
                 print!(" ");
                 node.display();
             }
@@ -33,8 +33,8 @@ impl<'a, T: std::fmt::Display> Node<'a, T> {
 }
 
 fn main() {
-    let first = Node::new(1u32);
-    let second = first.append(2);
-    let third = second.append(3);
+    let mut first = Node::new(1u32);
+    let mut second = first.append(2);
+    let mut third = second.append(3);
     third.display();
 }
